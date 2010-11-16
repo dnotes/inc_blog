@@ -1,0 +1,54 @@
+<?php
+
+include_once('inc_blog.features.inc');
+
+/**
+ * Implementation of hook_block()
+ */
+function inc_blog_block($op='list', $delta=0, $edit=array()) {
+  switch ($op) {
+    case 'list':
+      return array(
+        'blog-info-block' => array(
+          'info' => t('Blog Info'),
+          'cache' => BLOCK_CACHE_PER_PAGE,
+          'status' => TRUE,
+          'region' => 'sidebar_last',
+          'weight' => -150,
+          'custom' => FALSE,
+        ),
+      );
+      break;
+    case 'view':
+      if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) != 'edit' && $node = node_load(arg(1))) {
+        drupal_add_css(drupal_get_path('module', 'inc_blog') . '/inc_blog_blog_page.css');
+        if ($node->type == 'blog' && is_numeric($node->field_community_blog_link[0]['nid']) && $display = node_load($node->field_community_blog_link[0]['nid'])) {
+          return array('content' => node_view($display, TRUE, FALSE, FALSE));
+        }
+        elseif($node->type == 'community_blog') {
+          $content .= node_view($node, FALSE, FALSE, TRUE);
+          $content = preg_replace('|<h2 class="title".*?</h2>|', '<h2 class="title">' . check_plain($node->title) . '</h2>', $content);
+          return array('content' => $content);
+        }
+      }
+      break;
+    case 'configure':
+      $form['inc_blog_show_blog_info_block_on_page'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Replace content on community blog page'),
+        '#default_value' => variable_get('inc_blog_show_blog_info_block_on_page', module_exists('context')),
+        '#description' => t('By default, the general information about a community blog will be moved from the content area into this block when viewing the community blog page. To disable this behavior, uncheck this box.'),
+      );
+      return $form;
+      break;
+    case 'save':
+      variable_set('inc_blog_show_blog_info_block_on_page', $edit['inc_blog_show_blog_info_block_on_page']);
+      break;
+  }
+}
+
+function inc_blog_preprocess_node(&$vars) {
+  if ($vars['node']->type == 'community_blog' && $vars['page'] && variable_get('inc_blog_show_blog_info_block_on_page', module_exists('context')) == TRUE) {
+    $vars['content'] = $vars['picture'] = $vars['submitted'] = $vars['links'] = $vars['title'] = '';
+  }
+}
