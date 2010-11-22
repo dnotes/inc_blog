@@ -27,7 +27,7 @@ function inc_blog_context_default_contexts() {
         'inc_blog-blog-info-block' => array(
           'module' => 'inc_blog',
           'delta' => 'blog-info-block',
-          'region' => 'sidebar_last',
+          'region' => 'sidebar_first',
           'weight' => -100,
         ),
         'views-Blogs-block_1' => array(
@@ -70,7 +70,7 @@ function inc_blog_context_default_contexts() {
         'inc_blog-blog-info-block' => array(
           'module' => 'inc_blog',
           'delta' => 'blog-info-block',
-          'region' => 'sidebar_last',
+          'region' => 'sidebar_first',
           'weight' => 0,
         ),
       ),
