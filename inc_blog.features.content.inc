@@ -70,7 +70,7 @@ function inc_blog_content_default_fields() {
       'default_value_php' => NULL,
       'label' => 'Community Blog',
       'weight' => '-3',
-      'description' => '',
+      'description' => 'If you are permitted to post in any community blogs, you will be able to select one here.  Selecting "none" will post to your personal blog.  To create a new community blog, <a href="/node/add/community-blog">click here</a>.',
       'type' => 'nodereference_select',
       'module' => 'nodereference',
     ),
