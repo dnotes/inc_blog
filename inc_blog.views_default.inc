@@ -892,7 +892,7 @@ function inc_blog_views_default_views() {
       'label' => '',
       'alter' => array(
         'alter_text' => 1,
-        'text' => '<h2><a href="[path]" alt="[body]">[title]</a><span class="created-date">last&nbsp;post:&nbsp;[created]</span></h2>',
+        'text' => '<h2><a href="[path]" alt="[body]">[title]</a> <span class="created-date">last&nbsp;post:&nbsp;[created]</span></h2>',
         'make_link' => 0,
         'path' => '',
         'link_class' => '',
@@ -912,7 +912,7 @@ function inc_blog_views_default_views() {
       'hide_empty' => 1,
       'empty_zero' => 0,
       'date_format' => 'custom',
-      'custom_date_format' => 'M. j',
+      'custom_date_format' => 'M.&\\nb\\sp;j',
       'exclude' => 0,
       'id' => 'created',
       'table' => 'node',
