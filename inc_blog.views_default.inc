@@ -672,9 +672,9 @@ function inc_blog_views_default_views() {
   $handler->override_option('title', 'Recent posts from all blogs');
   $handler->override_option('path', 'blog');
   $handler->override_option('menu', array(
-    'type' => 'none',
+    'type' => 'normal',
     'title' => 'Blogs',
-    'description' => '',
+    'description' => 'Recent blog posts and community blogs',
     'weight' => '5',
     'name' => 'primary-links',
   ));
@@ -820,9 +820,9 @@ function inc_blog_views_default_views() {
     'title' => array(
       'label' => '',
       'alter' => array(
-        'alter_text' => 1,
+        'alter_text' => 0,
         'text' => '<h2>[title]</h2>',
-        'make_link' => 1,
+        'make_link' => 0,
         'path' => '[path]',
         'link_class' => '',
         'alt' => '[body]',
@@ -841,7 +841,7 @@ function inc_blog_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_node' => 0,
-      'exclude' => 0,
+      'exclude' => 1,
       'id' => 'title',
       'table' => 'node',
       'field' => 'title',
@@ -886,6 +886,40 @@ function inc_blog_views_default_views() {
       'id' => 'field_community_blog_link_nid',
       'table' => 'node_data_field_community_blog_link',
       'field' => 'field_community_blog_link_nid',
+      'relationship' => 'none',
+    ),
+    'created' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 1,
+        'text' => '<h2><a href="[path]" alt="[body]">[title]</a><span class="created-date">last&nbsp;post:&nbsp;[created]</span></h2>',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 1,
+      'empty_zero' => 0,
+      'date_format' => 'custom',
+      'custom_date_format' => 'M. j',
+      'exclude' => 0,
+      'id' => 'created',
+      'table' => 'node',
+      'field' => 'created',
+      'override' => array(
+        'button' => 'Override',
+      ),
       'relationship' => 'none',
     ),
   ));
@@ -944,11 +978,20 @@ function inc_blog_views_default_views() {
     'type' => 'none',
   ));
   $handler->override_option('title', 'Community Blogs');
+  $handler->override_option('header', '<style>
+div.view-id-Community_Blogs div.views-field-field-main-image-fid {float:right;margin-right:9px;}
+div.view-id-Community_Blogs div.views-row {clear:both;margin-top:5px;}
+div.view-id-Community_Blogs div.views-field-created {display:table-cell;vertical-align:middle;height:50px;}
+div.view-id-Community_Blogs div.views-field-created h2 {margin:0;padding:0;}
+div.view-id-Community_Blogs div.views-field-created span.created-date {color:#999;font-size:10px;font-style:italic;margin-left:9px;}
+</style>');
+  $handler->override_option('header_format', '2');
+  $handler->override_option('header_empty', 0);
   $handler->override_option('use_ajax', TRUE);
-  $handler->override_option('items_per_page', 12);
+  $handler->override_option('items_per_page', 20);
   $handler->override_option('use_pager', 'mini');
   $handler->override_option('use_more', 1);
-  $handler->override_option('use_more_always', 0);
+  $handler->override_option('use_more_always', 1);
   $handler->override_option('use_more_text', 'all community blogs...');
   $handler->override_option('style_options', array(
     'grouping' => '',
@@ -1019,8 +1062,6 @@ function inc_blog_views_default_views() {
   ));
   $handler->override_option('header', 'This user has contributed to the following community blogs:');
   $handler->override_option('header_format', '1');
-  $handler->override_option('header_empty', 0);
-  $handler->override_option('use_more_always', 1);
   $handler->override_option('distinct', 0);
   $handler->override_option('block_description', '');
   $handler->override_option('block_caching', '4');
@@ -1205,11 +1246,11 @@ function inc_blog_views_default_views() {
     ),
   ));
   $handler->override_option('use_ajax', FALSE);
+  $handler->override_option('items_per_page', 50);
   $handler->override_option('use_pager', '1');
-  $handler->override_option('style_options', array());
   $handler->override_option('path', 'blogs');
   $handler->override_option('menu', array(
-    'type' => 'normal',
+    'type' => 'none',
     'title' => 'Blogs',
     'description' => 'A list of community blogs on the site',
     'weight' => '5',

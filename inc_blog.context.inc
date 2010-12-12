@@ -8,6 +8,39 @@ function inc_blog_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'blog_post_list';
+  $context->description = 'Recent blog posts';
+  $context->tag = 'inc-blog';
+  $context->conditions = array(
+    'views' => array(
+      'values' => array(
+        'Blogs:page_2' => 'Blogs:page_2',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-Community_Blogs-block_1' => array(
+          'module' => 'views',
+          'delta' => 'Community_Blogs-block_1',
+          'region' => 'sidebar_first',
+          'weight' => 0,
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Recent blog posts');
+  t('inc-blog');
+
+  $export['blog_post_list'] = $context;
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'community_blog_pages';
   $context->description = 'Community blog page';
   $context->tag = 'inc-blog';
